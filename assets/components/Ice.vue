@@ -12,10 +12,6 @@
         words: []
       };
     },
-
-    created() {
-      console.log('created');
-    }
   };
 </script>
 

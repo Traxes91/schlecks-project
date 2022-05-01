@@ -1,7 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    Ich werde traurig
-    <div id="app"></div>
+    <div id="ice"></div>
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+
+    {{ encore_entry_script_tags('ice') }}
+{% endblock %}
