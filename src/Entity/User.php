@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\UserRepository;
@@ -9,13 +11,14 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: ['id'], message: 'There is already an account with this id')]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['userName'], message: 'There is already an account with this user name')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private string $id;
 
     #[ORM\Column(type: 'json')]
     private array $roles = [];
@@ -30,9 +33,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private string $email = '';
 
     #[ORM\Column(type: 'boolean')]
-    private $isVerified = false;
+    private bool $isVerified = false;
 
-    public function getId(): ?string
+    public function getId(): string
     {
         return $this->id;
     }
@@ -51,7 +54,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->id;
+        return $this->email;
     }
 
     /**
